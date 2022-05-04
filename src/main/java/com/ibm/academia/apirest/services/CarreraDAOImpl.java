@@ -10,28 +10,34 @@ import java.util.Optional;
 
 @Service
 public class CarreraDAOImpl implements CarreraDAO{
+    // Notación inyeccion de dependencias
     @Autowired
-    private CarreraRepositorio carreraRepositorio;
+    private CarreraRepositorio carreraRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Carrera> buscarPorId(Integer id) {
-        return carreraRepositorio.findById(id);
+
+        return carreraRepository.findById(id);
     }
 
     @Override
+    @Transactional
     public Carrera guardar(Carrera carrera) {
-        return carreraRepositorio.save(carrera);
+
+        return carreraRepository.save(carrera);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Iterable<Carrera> buscarTodos() {
-        return null;
+
+        return carreraRepository.findAll();
     }
 
     @Override
+    @Transactional
     public void eliminarPorId(Integer id) {
-
+        carreraRepository.deleteById(id);
     }
 }
