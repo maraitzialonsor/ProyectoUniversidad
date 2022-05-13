@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "profesores", schema = "universidad")
+@Table(name = "profesores")
 @PrimaryKeyJoinColumn(name = "profesor_id")
 public class Profesor extends Persona{
     private static final long serialVersionUID = -3936365172522033766L;

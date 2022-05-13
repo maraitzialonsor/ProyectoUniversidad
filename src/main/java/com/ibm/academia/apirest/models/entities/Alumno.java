@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "alumnos", schema = "universidad")
+@Table(name = "alumnos")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Alumno extends Persona{
     private static final long serialVersionUID = -2253941758950306159L;

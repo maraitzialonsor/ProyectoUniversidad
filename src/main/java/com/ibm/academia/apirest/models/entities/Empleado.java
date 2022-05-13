@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "empleados", schema = "universidad")
+@Table(name = "empleados")
 // Llave primaria para clase hija
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Empleado extends Persona{

@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "pabellones", schema = "universidad")
+@Table(name = "pabellones")
 public class Pabellon implements Serializable {
     private static final long serialVersionUID = -6413756289590929526L;
     @Id

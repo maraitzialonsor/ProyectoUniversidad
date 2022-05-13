@@ -15,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "personas",schema = "universidad")
+@Table(name = "personas")
 // Inheritance permite reutilizaciòn de còdigo
 // Joined crea una tabla con atributos por cada una de las hijas
 @Inheritance(strategy = InheritanceType.JOINED)

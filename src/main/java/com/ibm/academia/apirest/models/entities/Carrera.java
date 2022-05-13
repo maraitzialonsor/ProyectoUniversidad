@@ -1,10 +1,14 @@
 package com.ibm.academia.apirest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -14,7 +18,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "carreras", schema = "universidad")
+@Table(name = "carreras")
 public class Carrera implements Serializable {
 
     private static final long serialVersionUID = 5800574577315355600L;
@@ -22,12 +26,17 @@ public class Carrera implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "No puede ser nulo")
+    @NotEmpty(message = "No puede ser vacia")
+
     @Column(name = "nombre", nullable = false, unique = true, length = 80)
     private String nombre;
 
+    @Positive
     @Column(name = "cantidad_materias")
     private Integer cantidadMaterias;
 
+    @Positive
     @Column(name = "cantidad_anios")
     private Integer cantidadAnios;
 
@@ -38,9 +47,11 @@ public class Carrera implements Serializable {
     private Date fechaModificacion;
 
     @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"carrera"})
     private Set<Alumno> alumnos;
 
     @ManyToMany(mappedBy = "carreras", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"carreras"})
     private Set<Profesor> profesores;
 
     public Carrera(Integer id, String nombre, Integer cantidadMaterias, Integer cantidadAnios) {
