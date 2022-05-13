@@ -1,4 +1,4 @@
-package com.ibm.academia.apirest.entities;
+package com.ibm.academia.apirest.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

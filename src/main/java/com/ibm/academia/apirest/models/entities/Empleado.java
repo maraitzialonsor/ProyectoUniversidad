@@ -1,4 +1,4 @@
-package com.ibm.academia.apirest.entities;
+package com.ibm.academia.apirest.models.entities;
 
 import com.ibm.academia.apirest.enums.TipoEmpleado;
 import lombok.Getter;

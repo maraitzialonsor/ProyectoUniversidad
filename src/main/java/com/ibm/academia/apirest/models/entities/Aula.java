@@ -1,11 +1,10 @@
-package com.ibm.academia.apirest.entities;
+package com.ibm.academia.apirest.models.entities;
 
-import com.ibm.academia.apirest.enums.Pizarron;
+import com.ibm.academia.apirest.enums.TipoPizarron;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class Aula {
 
     @Column(name = "tipo_pizarron")
     @Enumerated(EnumType.STRING)
-    private Pizarron pizarron;
+    private TipoPizarron pizarron;
 
     @Column(name = "fecha_alta")
     private Date fechaAlta;
@@ -46,7 +45,7 @@ public class Aula {
     @JoinColumn(name = "pabellon_id", foreignKey = @ForeignKey(name = "FK_PABELLON_ID"))
     private Pabellon pabellon;
 
-    public Aula(Integer id, Integer numeroAula, String medidas, Integer cantidadPupitres, Pizarron pizarron) {
+    public Aula(Integer id, Integer numeroAula, String medidas, Integer cantidadPupitres, TipoPizarron pizarron) {
         this.id = id;
         this.numeroAula = numeroAula;
         this.medidas = medidas;

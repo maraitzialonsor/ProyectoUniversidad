@@ -1,4 +1,4 @@
-package com.ibm.academia.apirest.entities;
+package com.ibm.academia.apirest.models.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +13,6 @@ import javax.persistence.*;
 @Table(name = "alumnos")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Alumno extends Persona{
-    private static final long serialVersionUID = -2253941758950306159L;
-
     @ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "carrera_id")
     private Carrera carrera;
@@ -26,8 +24,8 @@ public class Alumno extends Persona{
     @Override
     public String toString() {
         return super.toString() +
-                "Alumno{" +
-                "carrera=" + carrera +
-                '}';
+                "\tAlumno: {}";
     }
+
+    private static final long serialVersionUID = -2253941758950306159L;
 }
