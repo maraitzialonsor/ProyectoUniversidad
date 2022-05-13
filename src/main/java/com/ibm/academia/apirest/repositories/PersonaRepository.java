@@ -1,6 +1,6 @@
 package com.ibm.academia.apirest.repositories;
 
-import com.ibm.academia.apirest.entities.Persona;
+import com.ibm.academia.apirest.models.entities.Persona;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -16,8 +16,8 @@ public interface PersonaRepository extends CrudRepository<Persona, Integer> {
     public Optional<Persona> buscarPorDNI(String dni);
 
     @Query(value = "select p from Persona p where apellido like %?1%")
-    public Persona buscarPorApellido(String apellido);
+    public Iterable<Persona> buscarPersonaPorApellido(String apellido);
 
-    @Query(value = "select * from universidad.personas where id = ?1", nativeQuery = true)
-    public Persona buscarPorId(Integer id);
+    //@Query(value = "select * from universidad.personas where id = ?1", nativeQuery = true)
+    //public Persona buscarPorId(Integer id);
 }

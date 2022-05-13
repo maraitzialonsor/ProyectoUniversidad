@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 // Realizando inyecciones
 @Repository
-public interface CarreraRepositorio extends CrudRepository<Carrera, Integer> {
+public interface CarreraRepository extends CrudRepository<Carrera, Integer> {
     // @Query("select c from Carrera c where a.cantidadAnios = ?1")
     public Iterable<Carrera> findByCantidadAnios(Integer cantidadAnios);
 
