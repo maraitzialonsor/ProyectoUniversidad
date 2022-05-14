@@ -1,6 +1,8 @@
 package com.ibm.academia.apirest.models.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,68 +10,105 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+
 @Setter
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity
-@Table(name = "pabellones")
-public class Pabellon implements Serializable {
-    private static final long serialVersionUID = -6413756289590929526L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@Table(name = "pabellones", schema = "universidad")
+public class Pabellon implements Serializable
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "metros_cuadrados")
+	private Double metrosCuadrados;
+	
+	@Column(name = "nombre" , nullable=false, unique = true)
+	private String nombre;
 
-    @Column(name = "metros_cuadrados")
-    private Double tamanoMetros;
+	
+	
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="codigoPostal",column = @Column(name="codigo_postal")),
+		@AttributeOverride(name="departamento",column = @Column(name="departamento"))
+})
+	private Direccion direccion;
+	
+	@Column(name = "usuario_creacion", nullable = false)
+	private String usuarioCreacion;
+	
+	@Column(name = "fecha_creacion", nullable = false)
+	private Date fechaCreacion;
+	
+	@Column(name = "fecha_modificacion")
+	private Date fechaModificacion;
+	
+	@OneToMany(mappedBy = "pabellon", fetch = FetchType.LAZY)
+	private Set<Aula> aulas;
 
-    @Column(name = "nombre", unique = true, nullable = false)
-    private String nombre;
+	public Pabellon(Long id, Double metrosCuadrados, String nombre, Direccion direccion, String usuarioCreacion) 
+	{
+		this.id = id;
+		this.metrosCuadrados = metrosCuadrados;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.usuarioCreacion = usuarioCreacion;
+	}
 
-    @Column(name = "fecha_alta")
-    private Date fechaAlta;
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pabellon [id=");
+		builder.append(id);
+		builder.append(", metrosCuadrados=");
+		builder.append(metrosCuadrados);
+		builder.append(", nombre=");
+		builder.append(nombre);
+		builder.append(", direccion=");
+		builder.append(direccion);
+		builder.append(", usuarioCreacion=");
+		builder.append(usuarioCreacion);
+		builder.append(", fechaCreacion=");
+		builder.append(fechaCreacion);
+		builder.append(", fechaModificacion=");
+		builder.append(fechaModificacion);
+		builder.append("]");
+		return builder.toString();
+	}
 
-    @Column(name = "fecha_modificacion")
-    private Date fechaModificacion;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "codigoPostal", column = @Column(name = "codigo_postal")),
-            @AttributeOverride(name = "departamento", column = @Column(name = "departamento"))
-    })
-    private Direccion direccion;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre);
+	}
 
-    // Fetch Lazy -> Obtencion perezosa (lectura demorada)
-    @OneToMany(mappedBy = "pabellon", fetch = FetchType.LAZY)
-    private Set<Aula> aulas;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Pabellon))
+			return false;
+		Pabellon other = (Pabellon) obj;
+		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
+	}
 
-    public Pabellon(Integer id, Double tamanoMetros, String nombre, Direccion direccion) {
-        this.id = id;
-        this.tamanoMetros = tamanoMetros;
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
+	@PrePersist
+	public void antesPersistir()
+	{
+		this.fechaCreacion= new Date();
+		
+	}
+	@PreUpdate
+	public void antesActualizar()
+	{
+		this.fechaModificacion= new Date();
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pabellon pabellon = (Pabellon) o;
-        return id.equals(pabellon.id) && nombre.equals(pabellon.nombre);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre);
-    }
+	private static final long serialVersionUID = 695861404095702871L;
+	
 
-    @PrePersist
-    private void antesPersistir(){
-        this.fechaAlta = new Date();
-    }
-
-    @PreUpdate
-    private void antesActualizar(){
-        this.fechaModificacion = new Date();
-    }
 }

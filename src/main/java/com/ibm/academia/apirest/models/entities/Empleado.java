@@ -12,35 +12,43 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "empleados")
-// Llave primaria para clase hija
-@PrimaryKeyJoinColumn(name = "persona_id")
-public class Empleado extends Persona{
-    private static final long serialVersionUID = -7669008432851128585L;
+@Table(name="empleados",schema = "universidad")
+@PrimaryKeyJoinColumn(name="persona_id")
+public class Empleado extends Persona
+{
+	@Column(name="sueldo")
+	private BigDecimal sueldo;
+	
+	@Column(name = "tipo_empleado")
+	@Enumerated(EnumType.STRING)
+	private TipoEmpleado tipoEmpleado;
+	
+	
+	@OneToOne(optional = true , cascade = CascadeType.ALL)
+	@JoinColumn(name="pabellon_id",foreignKey = @ForeignKey(name="FK_PABELLON_ID"))
+	private Pabellon pabellon;
 
-    @Column(name = "sueldo")
-    private BigDecimal sueldo;
+	
 
-    @Column(name = "tipo_empleado")
-    @Enumerated(EnumType.STRING)
-    private TipoEmpleado tipoEmpleado;
+	public Empleado(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion,BigDecimal sueldo,TipoEmpleado tipoEmpleado) {
+		super(id, nombre, apellido, dni, usuarioCreacion, direccion);
+		this.sueldo=sueldo;
+		this.tipoEmpleado=tipoEmpleado;
+	}
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pabellon_id", foreignKey = @ForeignKey(name = "FK_PABELLON_ID"))
-    private Pabellon pabellon;
+	@Override
+	public String toString() 
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString());
+		builder.append("Empleado [sueldo=");
+		builder.append(sueldo);
+		builder.append(", tipoEmpleado=");
+		builder.append(tipoEmpleado);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	private static final long serialVersionUID = -6079117421503572468L;
 
-    public Empleado(Integer id, String nombre, String apellido, String dni, Direccion direccion, BigDecimal sueldo, TipoEmpleado tipoEmpleado) {
-        super(id, nombre, apellido, dni, direccion);
-        this.sueldo = sueldo;
-        this.tipoEmpleado = tipoEmpleado;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                "\nEmpleado{" +
-                "sueldo=" + sueldo +
-                ", tipoEmpleado=" + tipoEmpleado +
-                '}';
-    }
 }

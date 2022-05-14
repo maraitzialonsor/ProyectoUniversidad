@@ -8,37 +8,50 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+
 @Setter
-@Getter
+@Getter	
 @NoArgsConstructor
 @Entity
-@Table(name = "profesores")
-@PrimaryKeyJoinColumn(name = "profesor_id")
-public class Profesor extends Persona{
-    private static final long serialVersionUID = -3936365172522033766L;
+@Table(name="profesores", schema = "universidad")
+@PrimaryKeyJoinColumn(name = "persona_id")
+public class Profesor extends Persona 
+{
+	@Column(name="sueldo")
+	private BigDecimal sueldo;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(
+			name="profesor_carrera",schema = "universidad",
+			joinColumns = @JoinColumn(name="profesor_id"),
+			inverseJoinColumns = @JoinColumn(name="carrera_id")
+			)
+	private Set<Carrera>carreras;
+	
+	
+	
+	public Profesor(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion, BigDecimal sueldo) 
+	{
+		super(id, nombre, apellido, dni, usuarioCreacion, direccion);
+		this.sueldo=sueldo;
+	}
 
-    @Column(name = "sueldo")
-    private BigDecimal sueldo;
+	
+
+	@Override
+	public String toString() 
+	{
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString());
+		builder.append("Profesor [sueldo=");
+		builder.append(sueldo);
+		builder.append("]");
+		return builder.toString();
+	}
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "profesor_carrera", schema = "universidad",
-            joinColumns = @JoinColumn(name = "profesor_id"),
-            inverseJoinColumns = @JoinColumn(name = "carrera_id")
-    )
-    private Set<Carrera> carreras;
 
-    public Profesor(Integer id, String nombre, String apellido, String dni, Direccion direccion, BigDecimal sueldo) {
-        super(id, nombre, apellido, dni, direccion);
-        this.sueldo = sueldo;
-    }
+	private static final long serialVersionUID = 951996504952495470L;
 
-    @Override
-    public String toString() {
-        return super.toString() +
-                "Profesor{" +
-                "sueldo=" + sueldo +
-                '}';
-    }
 }
