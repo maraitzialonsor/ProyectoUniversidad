@@ -33,8 +33,6 @@ public class Alumno extends Persona
 		return builder.toString();
 	}
 
-
-
 	private static final long serialVersionUID = -3707927656141349583L;
 
 }

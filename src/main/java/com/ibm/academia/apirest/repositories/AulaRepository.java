@@ -5,7 +5,7 @@ import com.ibm.academia.apirest.models.entities.Aula;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("repositorioAula")
 public interface AulaRepository extends CrudRepository<Aula, Long>
 {
 	

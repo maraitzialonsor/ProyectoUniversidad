@@ -4,10 +4,12 @@ import com.ibm.academia.apirest.exceptions.handler.NotFoundException;
 import com.ibm.academia.apirest.models.entities.Direccion;
 import com.ibm.academia.apirest.models.entities.Pabellon;
 import com.ibm.academia.apirest.repositories.PabellonRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 public class PabellonDAOImpl extends GenericoDAOImpl<Pabellon, PabellonRepository> implements PabellonDAO 
 {
 

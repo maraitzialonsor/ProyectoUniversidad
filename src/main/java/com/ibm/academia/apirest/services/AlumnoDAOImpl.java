@@ -16,9 +16,8 @@ import java.util.Optional;
 @Service
 public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO
 {
-	@Autowired
 	private CarreraDAO carreraDao;
-	
+	@Autowired
 	public AlumnoDAOImpl(@Qualifier("repositorioAlumno")PersonaRepository repository)
 	{
 		super(repository);

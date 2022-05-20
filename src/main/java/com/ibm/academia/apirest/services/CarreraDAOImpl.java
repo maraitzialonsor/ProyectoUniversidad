@@ -16,7 +16,6 @@ public class CarreraDAOImpl extends GenericoDAOImpl<Carrera, CarreraRepository> 
 	@Autowired
 	public CarreraDAOImpl(CarreraRepository carreraRepository) {
 		super(carreraRepository);
-		
 	}
 
 	@Override

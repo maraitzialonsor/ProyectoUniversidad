@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("repositorioCarrera")
 public interface CarreraRepository extends CrudRepository<Carrera, Long>
 {
 	//@Query("select c from Carrera c where c.nombre like %?1%")
@@ -23,6 +23,6 @@ public interface CarreraRepository extends CrudRepository<Carrera, Long>
 	@Query(value = "select c.* from universidad.carreras c where c.cantidad_materias < ?1", nativeQuery = true)
 	public List<Carrera>buscarCarrerasPorNombre(String nombre);
 	
-	@Query("select c from Profesor_carrera c join fetch c.profesor prof where prof.nombre = ?1 and prof.apellido = ?2 ")
+	@Query(value = "select c from Profesor_carrera c join fetch c.profesor prof where prof.nombre = ?1 and prof.apellido = ?2 ", nativeQuery = true)
 	public Iterable<Carrera>buscarCarrerasPorProfesorNombreYApellido(String nombre, String apellido);
 }

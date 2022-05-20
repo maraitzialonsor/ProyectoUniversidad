@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
 public class PersonaDAOImpl extends GenericoDAOImpl<Persona,PersonaRepository> implements PersonaDAO 
 {
 
